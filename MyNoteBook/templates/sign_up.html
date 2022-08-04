@@ -1,0 +1,11 @@
+{%extends 'base.html' %} {%block title %} Sign-Up {% endblock %}
+{%block content %} 
+<link rel="stylesheet" href="{{url_for('static', filename='sign_up.css')}}">
+<h1 id="pageName">Sign Up</h1><br>
+<form method="POST">
+    <input type="email" id="email" name="email" placeholder="Email"><br><br>
+    <input type="password" id="password" name="password" placeholder="Password"><br><br>
+    <input type="submit" id="submit" value="Sign Up">
+</form>
+
+{% endblock %}

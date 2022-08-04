@@ -1,0 +1,13 @@
+{% extends 'base_notes.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='trash.css')}}">
+<h1 id="title">Trash</h1>
+<hr id="line">
+<div class="side">
+    {% for s in user %}
+    {% for trash in s.trashes %}
+        <li><a href={{trash.name}}> {{trash.name}}</a></li>
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}

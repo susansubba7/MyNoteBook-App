@@ -1,0 +1,23 @@
+{% extends "base_notes.html" %} {% block title %}Settings{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='account.css')}}">
+<h1 id="title">Account
+<hr id="line">
+<div class="user_info">
+    <h2>Email: {{email}}</h2>
+</div>
+<button class="change_password" onclick="displayForm()">Change password</button>
+<form class="pass_input" id="change_form" method="POST">
+    <label >Old password</label><br>
+    <input type="password" id="old_pass" name="old_pass" placeholder="Enter old password"><br><br>
+
+    <label>New Password</label><br>
+    <input type="password" id="new_pass" name="new_pass" placeholder="Enter new password"><br><br>
+    <button type="submit" class="change_button" value="submit">Change</button>
+</form>
+<script>
+    function displayForm(){
+        document.getElementById("change_form").style.visibility = "visible";
+    }
+</script>
+{% endblock %}

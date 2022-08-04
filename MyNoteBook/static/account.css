@@ -1,0 +1,23 @@
+#title{
+    position: relative;
+    left: 170px;
+}
+.change_password{
+    background-color: white;
+    margin-top: 20px;
+}
+.change_password:hover{
+    background-color: green;
+    color: white;
+}
+.change_password:focus{
+    outline: none;
+}
+.pass_input{
+    padding: 20px;
+    margin: 5px 0 22px 0;
+    visibility: hidden;
+}
+.change_button{
+    color: white;
+}

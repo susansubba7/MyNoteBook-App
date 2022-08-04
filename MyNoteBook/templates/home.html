@@ -1,0 +1,15 @@
+{% extends 'base_notes.html' %}
+{% block content %}
+<div class="side">
+    <h1 id="recent">Recent Notes</h1>
+    <hr id="line"> 
+        {% for notes in user_info %}
+        {% for note in notes.notes %}
+        <a href={{"notes/"~note.id}} id={{note.id}}>{{note.id}}</p>
+        {% endfor %}
+        {% endfor %}
+</div>
+{% endblock %}
+
+
+

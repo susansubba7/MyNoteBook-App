@@ -1,0 +1,58 @@
+.sidenav {
+    height: 100%; 
+    width: 160px; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0;
+    background-color: #111; 
+    overflow-x: hidden; 
+    padding-top: 20px;
+  }
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+  }
+.sidenav a:hover {
+    color: #f1f1f1;
+  }
+.sidenav a:active{
+    background-color: blue;
+}
+.side{
+    margin-left: 160px;
+    font-size: 28px;
+    padding: 0px 10px;
+    list-style-type: none;
+}
+button{
+    background-color: rgb(12, 143, 12);
+    border: none;
+    border-radius: 12px;
+    cursor:pointer;
+    transition: all 0.3s ease 0s;
+    color: white;
+}
+button:hover{
+    background-color: rgb(7, 107, 7);
+}
+#new_button{
+    position: relative;
+    left: 10px;
+    top: 8px;
+    font-size: 24px;
+    color: white;
+}
+#log_out_button{
+    position: relative;
+    top: 30px;
+    left: 10px;
+    font-size: 24px;
+    color: white;
+}
+#line{
+    border: 1px solid black;
+}

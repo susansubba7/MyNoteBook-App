@@ -1,0 +1,58 @@
+{% extends 'base_notes.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='notes.css')}}"
+<div class="notes-list">
+    <form class="search" action="action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<div class="notes-list">
+    <form class="search" action="action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit" class="new_button"><i class="fa fa-search"></i></button>
+        <ul class="test">
+            {% for user in datas %}
+            {% for note in user.notes %}
+                <li><a href={{note.id}}> {{note.id}}</a></li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
+    </form>
+</div>
+<form class="title_form" method="POST">
+    <input type="text" value={{name}} name="title" class="title">
+    <button type="submit" class="change" name="change">Change</button>
+</form>
+<hr id="line">
+<form  method="POST">
+    <button type="submit" class="delete_button" name="delete_button">Delete</button>
+    <button type="submit" class="finish" name="done">Done</button>
+    <textarea placeholder="Write notes here" name="note" id="note">
+        {% for item in values -%}
+            {{item.data}}
+        {% endfor %}
+    </textarea>
+</form>
+
+
+<script>
+const textarea = document.querySelector('textarea')
+function handleResize(){
+    this.style.height = 'auto'
+    this.style.height = this.scrollHeight + 'px'
+}
+textarea.addEventListener('input', handleResize)
+</script>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {% for messages in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{messages}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
