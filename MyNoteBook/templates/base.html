@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='base.css')}}">
 </head>
 <body>
-    <img class="logo" src="static/app_logo_trans.png" alt="logo" width="150" height="100">
+    <a href="/"><img class="logo" src="static/app_logo_trans.png" alt="logo" width="150" height="100"></a>
     {% with messages = get_flashed_messages(with_categories=true)%}
     {% if messages %}
       {% for category, message in messages %}
@@ -23,6 +23,17 @@
         {% endfor %}
     {% endif %}
     {% endwith%}
+    <script>
+        function showPassword(){
+            var input = document.getElementById("password");
+            if(input.type == "password"){
+                input.type = "text"
+            }
+            else{
+                input.type = "password"
+            }
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
     crossorigin="anonymous"></script>

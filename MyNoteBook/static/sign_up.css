@@ -8,7 +8,7 @@
     font-size: 50px;
     margin-top: 80px;
 }
-input{
+input[type=text],input[type=password],input[type=submit],input[type=email]{
     padding: 12px 20px;
     display: inline-block;
     margin-left: 38%;
@@ -16,10 +16,17 @@ input{
     width: 20%;
     
 }
+input[type=checkbox]{
+    width: 2%;
+    display: inline-block;
+    margin-left: 37.5%;
+    box-sizing: border-box;
+}
 input[type=text]:focus{
     outline: none;
     border: 3px solid #cbb26a;
     background-color: rgb(230, 224, 224);
+    
 }
 input[type=password]:focus{
     outline: none;
@@ -45,3 +52,4 @@ input[type=submit]{
     z-index:9999; 
     border-radius:0px
 }
+

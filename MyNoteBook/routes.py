@@ -46,8 +46,12 @@ def login():
 def home():
     if "user" in session:
         if(request.method == "POST"):
-            new_name = create_note()
-            return redirect(url_for('routes.notes', name=new_name))
+            if "new_button" in request.form:
+                new_name = create_note()
+                return redirect(url_for('routes.notes', name=new_name))
+            elif "log_out_button" in request.form:
+                session.pop("user", None)
+                return redirect(url_for('routes.main'))
         return render_template('home.html', user_info = User.query.filter_by(id=session["user"]))
     return redirect(url_for('routes.login'))
 @routes.route('/notes', methods=['POST', 'GET'])
@@ -75,13 +79,14 @@ def notes(name):
                 return redirect(url_for('routes.notes', name=new_name))
             elif "delete_button" in request.form:
                 new_name = delete_note(name)
+                flash(name + " was deleted into trash!", category="success")
                 return redirect(url_for('routes.notes', name=new_name))
             elif "change" in request.form:
                 new_name = change_name(users, name)
                 return redirect(url_for('routes.notes', name=new_name))
             elif "log_out_button" in request.form:
                 session.pop("user", None)
-                return redirect(url_for('routes.login'))
+                return redirect(url_for('routes.main'))
         return render_template('note.html', name=name, values=Note.query.filter_by(id=name), datas=User.query.filter_by(id=users))
     return redirect(url_for('routes.login'))
 @routes.route('/account', methods=["GET", "POST"])
@@ -98,13 +103,19 @@ def account():
                     return render_template('account.html', email="password updated")
             elif "log_out_button" in request.form:
                 session.pop("user", None)
-                return redirect(url_for('routes.login'))
+                return redirect(url_for('routes.main'))
         email = user.id
         return render_template('account.html', email=email)
     return render_template('login.html')
 @routes.route('/trash', methods=['GET', 'POST'])
 def trash():
     if "user" in session:
+        if "new_button" in request.form:
+            new_name = create_note()
+            return redirect(url_for('routes.notes', name=new_name))
+        elif "log_out_button" in request.form:
+            session.pop("user", None)
+            return redirect(url_for('routes.main'))
         user = User.query.filter_by(id=session.get("user")).first()
         return render_template('trash.html', user=User.query.filter_by(id=session.get("user")))
     return redirect(url_for('routes.login'))
@@ -121,7 +132,7 @@ def trash_note(name):
                 return redirect(url_for('routes.notes', name=new_name))
             elif "log_out_button" in request.form:
                 session.pop("user", None)
-                return redirect(url_for('routes.login'))
+                return redirect(url_for('routes.main'))
         return render_template('trash_note.html', name=name, trash_note=Trash.query.filter_by(name=name))
     return redirect(url_for('routes.login'))
 
@@ -157,7 +168,7 @@ def create_note():
     new_note = Note(id=name, user_id=users, data="Remove this message before typing")
     db.session.add(new_note)
     db.session.commit()
-    flash("note added", category='success')
+    flash(name + " is created!", category='success')
     return name
 def delete_note(name_delete):
     note_names_in_db = get_note_names()
@@ -172,13 +183,19 @@ def delete_note(name_delete):
             return (note_names_in_db[0])
 
 def recover_note(name):
-    note = Note(id=name, user_id=session.get("user"), 
-    data=Trash.query.filter_by(name=name).first().data)
-    db.session.add(note)
-    print(note.data + "data", file=sys.stderr)
+    names = get_note_names()
+    if name in names:
+        note = Note(id=name +" recovered", user_id=session.get("user"), 
+        data=Trash.query.filter_by(name=name).first().data)
+        db.session.add(note)
+    else:
+        note = Note(id=name, user_id=session.get("user"), 
+        data=Trash.query.filter_by(name=name).first().data)
+        db.session.add(note)
     db.session.commit()
     db.session.delete(Trash.query.filter_by(name=name).first())
     db.session.commit()
+    flash(note.id + "_ is recovered!", category='success')
     return name
 def change_data(data, name):
     print(data, file=sys.stderr)

@@ -6,9 +6,9 @@
 }
 
 li, a, button{
-    font-family: cursive;
-    font-weight: 500;
-    font-size: 20px;
+    font-family: fantasy;
+    /* font-weight: bold; */
+    font-size: 30px;
     color: black ;
     text-decoration: none;
 }
@@ -18,9 +18,14 @@ header{
     align-items: center;
     padding: 30px 10%;
 }
+.sign_up_button{
+    position: relative;
+    left: 200px;
+    bottom: -10px;
+}
 .info{
-    margin: 50px 500px;
-    
+    position: relative;
+    margin: 100px 50px;
 }
 .logo{
     cursor: pointer;
@@ -52,3 +57,25 @@ button{
 button:hover{
     background-color: rgba(0,136,169,0.8);
 }
+
+#phrase_one{
+    font-size: 50px;
+}
+#phrase_two{
+    font-size: 30px;
+}
+.info_two{
+    position: relative;
+    margin-left: 1300px;
+    margin-top: 100px;
+}
+.my_logo{
+    position: relative;
+    margin-left: 1300px;
+    margin-top: -3000px;
+}
+.image_name{
+    position: fixed;
+    margin-top: -105px;
+}
+
