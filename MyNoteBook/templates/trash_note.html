@@ -1,0 +1,14 @@
+{% extends 'base_notes.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='trash_note.css')}}">
+<h1 class="title">{{name}}</h1>
+<hr id="line">
+<p id="data"> 
+    {% for trashes in trash_note -%}
+    {{trashes.data}}
+{% endfor %}  
+</p>
+<form method="POST">
+    <button type="submit" name="recover" class="recover">Recover</button>
+</form>
+{% endblock %}

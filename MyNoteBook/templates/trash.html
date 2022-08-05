@@ -6,7 +6,7 @@
 <div class="side">
     {% for s in user %}
     {% for trash in s.trashes %}
-        <li><a href={{trash.name}}> {{trash.name}}</a></li>
+        <li><a href={{"trash/"~trash.name}}> {{trash.name}}</a></li>
     {% endfor %}
     {% endfor %}
 </div>

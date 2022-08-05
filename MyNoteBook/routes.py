@@ -46,7 +46,8 @@ def login():
 def home():
     if "user" in session:
         if(request.method == "POST"):
-            create_note()
+            new_name = create_note()
+            return redirect(url_for('routes.notes', name=new_name))
         return render_template('home.html', user_info = User.query.filter_by(id=session["user"]))
     return redirect(url_for('routes.login'))
 @routes.route('/notes', methods=['POST', 'GET'])
@@ -54,7 +55,6 @@ def notes_link():
     if "user" in session:
         if request.method == 'POST':
             create_note()
-        users = session.get("user")
         names = get_note_names()
         if len(names) == 0:
             return render_template('base_notes.html')
@@ -109,6 +109,22 @@ def trash():
         return render_template('trash.html', user=User.query.filter_by(id=session.get("user")))
     return redirect(url_for('routes.login'))
 
+@routes.route('/trash/<name>', methods=["POST", "GET"])
+def trash_note(name):
+    if "user" in session:
+        if request.method == 'POST':
+            if "recover" in request.form:
+                new_name = recover_note(name)
+                return redirect(url_for('routes.notes', name=new_name))
+            elif "new_button" in request.form:
+                new_name = create_note()
+                return redirect(url_for('routes.notes', name=new_name))
+            elif "log_out_button" in request.form:
+                session.pop("user", None)
+                return redirect(url_for('routes.login'))
+        return render_template('trash_note.html', name=name, trash_note=Trash.query.filter_by(name=name))
+    return redirect(url_for('routes.login'))
+
 def change_name(users, name):
             new_name = request.form['title']
             user = User.query.filter_by(id=users)
@@ -154,8 +170,17 @@ def delete_note(name_delete):
             db.session.commit()
             note_names_in_db.remove(name)
             return (note_names_in_db[0])
+
+def recover_note(name):
+    note = Note(id=name, user_id=session.get("user"), 
+    data=Trash.query.filter_by(name=name).first().data)
+    db.session.add(note)
+    print(note.data + "data", file=sys.stderr)
+    db.session.commit()
+    db.session.delete(Trash.query.filter_by(name=name).first())
+    db.session.commit()
+    return name
 def change_data(data, name):
-    #name = request.form['title']
     print(data, file=sys.stderr)
     user = User.query.filter_by(id=session.get("user"))
     for notes in user:

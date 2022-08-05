@@ -56,3 +56,6 @@ button:hover{
 #line{
     border: 1px solid black;
 }
+#recent{
+    text-align: center;
+}
